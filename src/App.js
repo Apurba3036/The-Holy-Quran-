@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Book, Play, Pause, Volume2, Globe, Moon, Sun, Menu, X, Search, Star, BookOpen, Headphones, ArrowLeft } from 'lucide-react';
+import { ChevronRight, Book, Play, Pause, Volume2, Globe, Moon, Sun, Menu, X, Search, Star, BookOpen, Headphones, ArrowLeft, DockIcon } from 'lucide-react';
 
 function App() {
   const [surahs, setSurahs] = useState([]);
@@ -56,19 +56,38 @@ function App() {
     setLoading(false);
   };
 
-  const searchVerse = async () => {
-    if (!verseSearchSurah || !verseSearchAyah) return;
-    
-    setLoading(true);
+const searchVerse = async () => {
+  if (!verseSearchSurah || !verseSearchAyah) return;
+
+  setLoading(true);
+  try {
+    // Fetch verse data
+    const verseResponse = await fetch(`https://quranapi.pages.dev/api/${verseSearchSurah}/${verseSearchAyah}.json`);
+    if (!verseResponse.ok) throw new Error('Failed to fetch verse');
+    const verseData = await verseResponse.json();
+
+    // Fetch tafsir data
+    let tafsirs = [];
     try {
-      const response = await fetch(`https://quranapi.pages.dev/api/${verseSearchSurah}/${verseSearchAyah}.json`);
-      const data = await response.json();
-      setSearchedVerse(data);
-    } catch (error) {
-      console.error('Error fetching verse:', error);
+      const tafsirResponse = await fetch(`https://quranapi.pages.dev/api/tafsir/${verseSearchSurah}_${verseSearchAyah}.json`);
+      if (tafsirResponse.ok) {
+        const tafsirData = await tafsirResponse.json();
+        tafsirs = tafsirData.tafsirs || [];
+      } else {
+        console.warn(`Tafsir not available for Surah ${verseSearchSurah}, Ayah ${verseSearchAyah}`);
+      }
+    } catch (tafsirError) {
+      console.warn('Error fetching tafsir:', tafsirError);
     }
-    setLoading(false);
-  };
+
+    // Combine verse and tafsir data
+    setSearchedVerse({ ...verseData, tafsirs });
+  } catch (error) {
+    console.error('Error fetching verse:', error);
+    setSearchedVerse(null); // Clear state on error
+  }
+  setLoading(false);
+};
 
   // const playAudio = (audioUrl) => {
   //   if (currentAudio) {
@@ -256,7 +275,7 @@ const pauseAudio = () => {
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 w-full max-w-md sm:max-w-none mx-auto">
   {[
     { id: 'surahs', label: 'Surahs', icon: Book },
-    { id: 'verse-search', label: 'Verse Search', icon: Search },
+    { id: 'verse-search', label: 'Verse Search with Tafsir', icon: Search },
     { id: 'reciters', label: 'Reciters', icon: Headphones }
   ].map((tab) => {
     const Icon = tab.icon;
@@ -361,127 +380,217 @@ const pauseAudio = () => {
             )}
 
             {/* Verse Search Section */}
-            {activeSection === 'verse-search' && (
-              <div className="mb-12">
-                <div className={`p-8 rounded-2xl ${
-                  darkMode 
-                    ? 'bg-slate-800/50 border border-slate-700' 
-                    : 'bg-white/70 border border-emerald-200'
-                } backdrop-blur-sm`}>
-                  <h3 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-white' : 'text-slate-800'}`}>
-                    Search Specific Verse
-                  </h3>
-                  
-                  <div className="flex flex-wrap gap-4 justify-center items-end mb-6">
-                    <div>
-                      <label className={`block text-sm font-medium mb-2 ${
-                        darkMode ? 'text-slate-300' : 'text-slate-700'
-                      }`}>
-                        Surah Number
-                      </label>
-                      <input
-                        type="number"
-                        min="1"
-                        max="114"
-                        value={verseSearchSurah}
-                        onChange={(e) => setVerseSearchSurah(e.target.value)}
-                        className={`px-4 py-3 rounded-lg border transition-colors ${
-                          darkMode 
-                            ? 'bg-slate-700 border-slate-600 text-white' 
-                            : 'bg-white border-slate-300 text-slate-800'
-                        }`}
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className={`block text-sm font-medium mb-2 ${
-                        darkMode ? 'text-slate-300' : 'text-slate-700'
-                      }`}>
-                        Verse Number
-                      </label>
-                      <input
-                        type="number"
-                        min="1"
-                        value={verseSearchAyah}
-                        onChange={(e) => setVerseSearchAyah(e.target.value)}
-                        className={`px-4 py-3 rounded-lg border transition-colors ${
-                          darkMode 
-                            ? 'bg-slate-700 border-slate-600 text-white' 
-                            : 'bg-white border-slate-300 text-slate-800'
-                        }`}
-                      />
-                    </div>
-                    
-                    <button
-                      onClick={searchVerse}
-                      disabled={loading}
-                      className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-                        darkMode 
-                          ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
-                          : 'bg-emerald-500 hover:bg-emerald-600 text-white'
-                      } disabled:opacity-50`}
-                    >
-                      {loading ? 'Searching...' : 'Search Verse'}
-                    </button>
-                  </div>
+{/* Verse Search Section */}
+{activeSection === 'verse-search' && (
+  <div className="mb-12">
+    <div className={`p-8 rounded-2xl ${
+      darkMode 
+        ? 'bg-slate-800/50 border border-slate-700' 
+        : 'bg-white/70 border border-emerald-200'
+    } backdrop-blur-sm`}>
+      <h3 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-white' : 'text-slate-800'}`}>
+        Search Specific Verse
+      </h3>
+      
+      <div className="flex flex-wrap gap-4 justify-center items-end mb-6">
+        <div>
+          <label className={`block text-sm font-medium mb-2 ${
+            darkMode ? 'text-slate-300' : 'text-slate-700'
+          }`}>
+            Surah Number
+          </label>
+          <input
+            type="number"
+            min="1"
+            max="114"
+            value={verseSearchSurah}
+            onChange={(e) => setVerseSearchSurah(e.target.value)}
+            className={`px-4 py-3 rounded-lg border transition-colors ${
+              darkMode 
+                ? 'bg-slate-700 border-slate-600 text-white' 
+                : 'bg-white border-slate-300 text-slate-800'
+            }`}
+          />
+        </div>
+        
+        <div>
+          <label className={`block text-sm font-medium mb-2 ${
+            darkMode ? 'text-slate-300' : 'text-slate-700'
+          }`}>
+            Verse Number
+          </label>
+          <input
+            type="number"
+            min="1"
+            value={verseSearchAyah}
+            onChange={(e) => setVerseSearchAyah(e.target.value)}
+            className={`px-4 py-3 rounded-lg border transition-colors ${
+              darkMode 
+                ? 'bg-slate-700 border-slate-600 text-white' 
+                : 'bg-white border-slate-300 text-slate-800'
+            }`}
+          />
+        </div>
+        
+        <button
+          onClick={searchVerse}
+          disabled={loading}
+          className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+            darkMode 
+              ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
+              : 'bg-emerald-500 hover:bg-emerald-600 text-white'
+          } disabled:opacity-50`}
+        >
+          {loading ? 'Searching...' : 'Search Verse'}
+        </button>
+      </div>
 
-                  {/* Searched Verse Result */}
-                  {searchedVerse && (
-                    <div className={`p-6 rounded-xl ${
-                      darkMode 
-                        ? 'bg-slate-900/50 border border-slate-600' 
-                        : 'bg-emerald-50 border border-emerald-200'
+
+      {/* Searched Verse Result */}
+      {searchedVerse && (
+        <div className={`p-6 rounded-xl ${
+          darkMode 
+            ? 'bg-slate-900/50 border border-slate-600' 
+            : 'bg-emerald-50 border border-emerald-200'
+        }`}>
+          <div className="text-center mb-4">
+            <h4 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-800'}`}>
+              {searchedVerse.surahName} - Verse {searchedVerse.ayahNo}
+            </h4>
+            <p className={`text-lg ${darkMode ? 'text-emerald-300' : 'text-emerald-600'}`}>
+              {searchedVerse.surahNameTranslation}
+            </p>
+          </div>
+          
+          {/* Upper Line: Selected Language Verse */}
+          <p className={`text-lg leading-relaxed text-center ${
+            darkMode ? 'text-white' : 'text-slate-800'
+          }`} style={{
+            direction: selectedLanguage === 'arabic' || selectedLanguage === 'urdu' ? 'rtl' : 'ltr',
+            fontFamily: selectedLanguage === 'arabic' ? 'Amiri, serif' : selectedLanguage === 'bengali' ? 'Kalpurush, serif' : 'inherit'
+          }}>
+            {getLanguageText(searchedVerse, 'verse')}
+          </p>
+          
+          {/* Lower Line: Bengali Verse (always shown, regular font) */}
+          {searchedVerse.bengali ? (
+            <p className={`text-lg leading-relaxed font-normal text-center mt-2 ${
+              darkMode ? 'text-slate-300' : 'text-slate-600'
+            }`} style={{
+              direction: 'ltr',
+              fontFamily: 'Kalpurush, serif'
+            }}>
+              {searchedVerse.bengali}
+            </p>
+          ) : (
+            <p className={`text-sm text-center mt-2 ${
+              darkMode ? 'text-slate-400' : 'text-slate-500'
+            }`}>
+              Bengali translation unavailable
+            </p>
+          )}
+
+          {/* Audio for searched verse */}
+          {searchedVerse.audio && (
+            <div className="flex flex-wrap justify-center mt-4 gap-3">
+              {Object.entries(searchedVerse.audio).slice(0, 3).map(([id, audio]) => (
+                <button
+                  key={id}
+                  onClick={() => isPlaying ? pauseAudio() : playAudio(audio.url)}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                    darkMode 
+                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
+                      : 'bg-emerald-500 hover:bg-emerald-600 text-white'
+                  }`}
+                >
+                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                  <span className="text-sm">{audio.reciter.split(' ')[0]}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Tafsir Section */}
+          {searchedVerse.tafsirs && searchedVerse.tafsirs.length > 0 ? (
+            <div className="mt-8">
+              <h4 className={`text-2xl font-bold mb-6 text-center ${
+                darkMode ? 'text-white' : 'text-slate-800'
+              }`}>
+                📖 Tafsir
+              </h4>
+              <div className="space-y-6">
+                {searchedVerse.tafsirs.map((tafsir, index) => (
+                  <div
+                    key={index}
+                    className={`p-6 rounded-lg shadow-sm ${
+                      darkMode
+                        ? 'bg-slate-800/70 border border-slate-600'
+                        : 'bg-white/90 border border-emerald-300'
+                    } backdrop-blur-sm`}
+                  >
+                    <h5 className={`text-xl font-semibold mb-3 ${
+                      darkMode ? 'text-emerald-300' : 'text-emerald-600'
                     }`}>
-                      <div className="text-center mb-4">
-                        <h4 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-800'}`}>
-                          {searchedVerse.surahName} - Verse {searchedVerse.ayahNo}
-                        </h4>
-                        <p className={`text-lg ${darkMode ? 'text-emerald-300' : 'text-emerald-600'}`}>
-                          {searchedVerse.surahNameTranslation}
-                        </p>
-                      </div>
-                      
-                      {selectedLanguage === 'arabic' && (
-                        <p className={`text-2xl mb-4 text-center leading-relaxed ${
-                          darkMode ? 'text-emerald-300' : 'text-emerald-700'
-                        }`} style={{fontFamily: 'Amiri, serif', direction: 'rtl'}}>
-                          {searchedVerse.arabic1}
-                        </p>
-                      )}
-                      
-                      <p className={`text-lg text-center leading-relaxed ${
-                        darkMode ? 'text-white' : 'text-slate-800'
-                      }`} style={{
-                        direction: selectedLanguage === 'arabic' || selectedLanguage === 'urdu' ? 'rtl' : 'ltr',
-                        fontFamily: selectedLanguage === 'bengali' ? 'Kalpurush, serif' : 'inherit'
-                      }}>
-                        {getLanguageText(searchedVerse, 'verse')}
+                      {tafsir.author}
+                    </h5>
+                    {tafsir.groupVerse && (
+                      <p className={`text-sm italic mb-3 ${
+                        darkMode ? 'text-slate-400' : 'text-slate-500'
+                      }`}>
+                        {tafsir.groupVerse}
                       </p>
-
-                      {/* Audio for searched verse */}
-                      {searchedVerse.audio && (
-                        <div className="flex flex-wrap justify-center mt-4 gap-3">
-                          {Object.entries(searchedVerse.audio).slice(0, 3).map(([id, audio]) => (
-                            <button
-                              key={id}
-                              onClick={() => isPlaying ? pauseAudio() : playAudio(audio.url)}
-                              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                                darkMode 
-                                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
-                                  : 'bg-emerald-500 hover:bg-emerald-600 text-white'
+                    )}
+                    <div className={`text-base leading-relaxed ${
+                      darkMode ? 'text-slate-200' : 'text-slate-700'
+                    }`}>
+                      {tafsir.content.split('\n\n').map((paragraph, idx) => {
+                        // Detect markdown headings (##)
+                        if (paragraph.startsWith('## ')) {
+                          return (
+                            <h6
+                              key={idx}
+                              className={`text-lg font-bold mt-4 mb-2 ${
+                                darkMode ? 'text-slate-100' : 'text-slate-800'
                               }`}
                             >
-                              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                              <span className="text-sm">{audio.reciter.split(' ')[0]}</span>
-                            </button>
-                          ))}
-                        </div>
-                      )}
+                              {paragraph.replace('## ', '')}
+                            </h6>
+                          );
+                        }
+                        // Detect Arabic text (simplified check for Arabic characters)
+                        const isArabic = /[\u0600-\u06FF]/.test(paragraph);
+                        return (
+                          <p
+                            key={idx}
+                            className={`mb-3 ${isArabic ? 'text-right' : 'text-left'} ${
+                              darkMode ? 'text-slate-200' : 'text-slate-700'
+                            }`}
+                            style={{
+                              fontFamily: isArabic ? 'Amiri, serif' : 'inherit',
+                              direction: isArabic ? 'rtl' : 'ltr'
+                            }}
+                          >
+                            {paragraph}
+                          </p>
+                        );
+                      })}
                     </div>
-                  )}
-                </div>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
+          ) : (
+            <p className={`text-center mt-4 text-sm ${
+              darkMode ? 'text-slate-400' : 'text-slate-500'
+            }`}>
+              No tafsir available for this verse.
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+)}
 
             {/* Reciters Section */}
             {activeSection === 'reciters' && (
