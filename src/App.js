@@ -253,29 +253,29 @@ const pauseAudio = () => {
                 </p>
                 
                 {/* Navigation Tabs */}
-                <div className="flex flex-wrap justify-center gap-4 mb-8">
-                  {[
-                    { id: 'surahs', label: 'Surahs', icon: Book },
-                    { id: 'verse-search', label: 'Verse Search', icon: Search },
-                    { id: 'reciters', label: 'Reciters', icon: Headphones }
-                  ].map((tab) => {
-                    const Icon = tab.icon;
-                    return (
-                      <button
-                        key={tab.id}
-                        onClick={() => setActiveSection(tab.id)}
-                        className={`flex items-center space-x-2 px-6 py-3 rounded-xl transition-all ${
-                          activeSection === tab.id
-                            ? (darkMode ? 'bg-emerald-600 text-white' : 'bg-emerald-500 text-white')
-                            : (darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-300' : 'bg-white/50 hover:bg-white/70 text-slate-700')
-                        }`}
-                      >
-                        <Icon className="w-5 h-5" />
-                        <span className="font-medium">{tab.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+              <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 w-full max-w-md sm:max-w-none mx-auto">
+  {[
+    { id: 'surahs', label: 'Surahs', icon: Book },
+    { id: 'verse-search', label: 'Verse Search', icon: Search },
+    { id: 'reciters', label: 'Reciters', icon: Headphones }
+  ].map((tab) => {
+    const Icon = tab.icon;
+    return (
+      <button
+        key={tab.id}
+        onClick={() => setActiveSection(tab.id)}
+        className={`flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 rounded-xl transition-all w-full sm:w-auto ${
+          activeSection === tab.id
+            ? (darkMode ? 'bg-emerald-600 text-white' : 'bg-emerald-500 text-white')
+            : (darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-300' : 'bg-white/50 hover:bg-white/70 text-slate-700')
+        }`}
+      >
+        <Icon className="w-5 h-5" />
+        <span className="font-medium text-sm sm:text-base">{tab.label}</span>
+      </button>
+    );
+  })}
+</div>
               </div>
             </div>
 
