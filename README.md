@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+# Holy Quran App - القرآن الكريم
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+**A Beautiful and Modern Holy Quran Application**
 
-In the project directory, you can run:
+*بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ*
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![alt text](image.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## ✨ **Overview**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Welcome to Al-Quran, a beautifully designed web application that brings the divine guidance of the Holy Quran to your fingertips. This app allows users to read, listen, and reflect upon the final revelation from Allah, preserved in its original form. With a user-friendly interface and rich features, it aims to provide an immersive and accessible experience for exploring the Quran.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🌟 **Current Features**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 📚 **Complete Quran Access**
+- **All 114 Surahs** - Complete Holy Quran with authentic text
+- **Verse Display** - All verses with proper Arabic text and translations
+- **Surah Information** - Revelation place (Mecca/Madina) and verse count
+- **Beautiful Layout** - Islamic-inspired design with proper typography
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🌍 **Multi-Language Support**
+- **Arabic (العربية)** - Original text with proper formatting
+- **English** - Clear translations
+- **Bengali (বাংলা)** - Complete Bengali translation
+- **Urdu (اردو)** - Full Urdu translation with RTL support
 
-### `npm run eject`
+### 🎵 **Audio Recitation**
+- **5 Featured Reciters**:
+  - Mishary Rashid Al Afasy
+  - Abu Bakr Al Shatri
+  - Nasser Al Qatami
+  - Yasser Al Dosari
+  - Hani Ar Rifai
+- **Full Surah Audio** - Complete chapter recitations
+- **Audio Controls** - Play/pause functionality
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🔍 **Search Features**
+- **Surah Search** - Find chapters by name or translation
+- **Verse Search** - Search specific verses by Surah and Ayah number
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 🎨 **Design & Interface**
+- **Islamic Aesthetics** - Inspired by Islamic architecture
+- **Dark/Light Mode** - Toggle between themes
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🎯 **Main Sections**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 1. **📖 All Surahs**
+- Grid view of all 114 Surahs
+- Arabic names with translations
+- Search functionality
+- Click to view full Surah content
 
-### Code Splitting
+### 2. **🔍 Verse Search**
+- Search by Surah number and verse number
+- View specific verses with translations
+- Audio playback for searched verses
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 3. **🎵 Reciters**
+- Featured reciter profiles
+- country information
+- Easy access to recitations
 
-### Analyzing the Bundle Size
+### 4. **📄 Surah Details**
+- Complete Surah view with all verses
+- Multiple language translations
+- Audio controls for each Surah
+- Beautiful header with Surah information
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🎨 **Technical Features**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **React Framework** - Modern, responsive interface
+- **Tailwind CSS v3** - Beautiful styling with Islamic design
+- **API Integration** - Real-time Quran data
+- **Arabic Typography** - Proper font rendering for Arabic text
+- **RTL Support** - Right-to-left text for Arabic and Urdu
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🌟 **User Experience**
 
-### Deployment
+- **Peaceful Design** - Calming emerald color scheme
+- **Easy Navigation** - Intuitive interface
+- **Fast Loading** - Optimized performance
+- **Islamic Elements** - Respectful presentation of sacred content
+- **Accessibility** - Keyboard navigation and proper contrast
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+<div align="center">
+<div dir="rtl" style="text-align: center;">
+رَبَّنَا تَقَبَّلْ مِنَّا ۖ إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ
+</div>
+"Our Lord, accept [this] from us. Indeed You are the Hearing, the Knowing." - Al-Baqarah 2:127
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+</div>
