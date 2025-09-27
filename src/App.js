@@ -240,11 +240,11 @@ const pauseAudio = () => {
     className="w-20 h-20 object-cover rounded-full"
   />
 </div>
-                <h2 className={`text-5xl font-bold mb-4 ${
-                  darkMode ? 'text-white' : 'text-slate-800'
-                }`} style={{fontFamily: 'Amiri, serif', direction: 'rtl'}}>
-                  بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-                </h2>
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight ${
+  darkMode ? 'text-white' : 'text-slate-800'
+}`} style={{fontFamily: 'Amiri, serif', direction: 'rtl'}}>
+  بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+</h2>
                 <p className={`text-xl mb-2 ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                   বিসমিল্লাহির রাহমানির রাহীম
                 </p>
