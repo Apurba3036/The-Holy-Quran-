@@ -1,0 +1,410 @@
+[
+  {
+  "id": 0,
+  "name_en": "Dua for Seeking Forgiveness",
+  "name_ar": "دعاء الاستغفار",
+  "arabic": "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+  "english": "I ask forgiveness from Allah, the Almighty, who there is no deity except Him, the Ever-Living, the Sustainer of existence, and I turn to Him in repentance.",
+  "bangla": "আমি আল্লাহর কাছে ক্ষমা প্রার্থনা করছি, যিনি ছাড়া কোনো প্রকৃত উপাস্য নেই; তিনি চিরঞ্জীব, সবকিছুর ধারক-বিধাতা এবং আমি তাঁর কাছে তাওবা করে ফিরে আসি।",
+  "reference": "Sunan al-Tirmidhi, Sunan Abu Dawood, Al-Hakim, and others. The hadith is classified as 'Sahih' by Al-Hakim and meets the criteria of Bukhari and Muslim.",
+  "reference_source_ids": ["turn0search2", "turn0search11"]
+}
+,
+  {
+    "id": 1,
+    "name_en": "Dua Before Eating",
+    "name_ar": "دعاء قبل الأكل",
+    "arabic": "بِسْمِ اللَّهِ",
+    "english": "In the name of Allah.",
+    "bangla": "আল্লাহর নামে।",
+    "reference": "Sunan Ibn Majah / Hisn al-Muslim (masnoon dua) - general recommendation to say Bismillah before eating.",
+    "reference_source_ids": [
+      "turn0search3",
+      "turn0search10"
+    ]
+  },
+  {
+    "id": 2,
+    "name_en": "Dua After Eating",
+    "name_ar": "دعاء بعد الأكل",
+    "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+    "english": "All praise is due to Allah who fed me this and provided it for me without any might or power from myself.",
+    "bangla": "সকল প্রশংসা আল্লাহর জন্য, যিনি আমাকে এটি খাওয়ানোর ব্যবস্থা করেছেন, আমার কোনো শক্তি বা সামর্থ্য ছাড়াই।",
+    "reference": "Sunan Ibn Majah; hadith recorded about saying this after eating (see Ibn Majah / collections summarised on sunnah.com).",
+    "reference_source_ids": [
+      "turn0search3",
+      "turn0search10"
+    ]
+  },
+  {
+    "id": 3,
+    "name_en": "Dua When Entering the Mosque",
+    "name_ar": "دعاء دخول المسجد",
+    "arabic": "اللَّهُمَّ افتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+    "english": "O Allah, open for me the doors of Your mercy.",
+    "bangla": "হে আল্লাহ, আপনার রহমতের দরজা আমার জন্য খুলুন।",
+    "reference": "Sahih Muslim 713a (hadith) - dua for entering the mosque.",
+    "reference_source_ids": [
+      "turn0search7",
+      "turn0search8"
+    ]
+  },
+  {
+    "id": 4,
+    "name_en": "Dua When Leaving the Mosque",
+    "name_ar": "دعاء الخروج من المسجد",
+    "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِن فَضْلِكَ",
+    "english": "O Allah, I ask You from Your bounty (favor).",
+    "bangla": "হে আল্লাহ, আমি আপনার নৈকট্য/অনুগ্রহ চাই।",
+    "reference": "Sahih Muslim 713a; Sunan Abi Dawud - dua for leaving the mosque.",
+    "reference_source_ids": [
+      "turn0search7",
+      "turn0search18"
+    ]
+  },
+  {
+    "id": 5,
+    "name_en": "Dua Before Sleeping",
+    "name_ar": "دعاء قبل النوم",
+    "arabic": "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+    "english": "In Your name, O Allah, I die and I live.",
+    "bangla": "আল্লাহর নামে, আমি মরিতেছি এবং বেঁচে আছি।",
+    "reference": "Reported in Sahih al-Bukhari and Muslim (Hisnul Muslim collections; many nightly adhkar include this).",
+    "reference_source_ids": [
+      "turn0search5",
+      "turn0search6"
+    ]
+  },
+  {
+    "id": 6,
+    "name_en": "Dua Upon Waking",
+    "name_ar": "دعاء عند الاستيقاظ",
+    "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا",
+    "english": "All praise is for Allah who gave us life after He caused us to die (i.e. sleep), and to Him is the return.",
+    "bangla": "সকল প্রশংসা আল্লাহর যারা আমাদের মৃত্যুর (ঘুম) পর আবার জীবন দিয়েছেন; ফিরে যাওয়া তাঁরই।",
+    "reference": "Reported in Sahih al-Bukhari (duas for waking).",
+    "reference_source_ids": [
+      "turn0search6",
+      "turn0search5"
+    ]
+  },
+  {
+    "id": 7,
+    "name_en": "Dua for Travel (Safar)",
+    "name_ar": "دعاء السفر",
+    "arabic": "بِسْمِ اللَّهِ، السَّلَامُ عَلَيْكُمْ، سَلَّمَ... سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا...",
+    "english": "In the name of Allah... Glory be to the One Who subjected this to us, and indeed to our Lord we will surely return.",
+    "bangla": "আল্লাহর নামে... মহিমা সেই ব্যক্তির যিনি আমাদের জন্য এটিকে সচ্ছল করেছেন; নিশ্চয়ই আমরা আমাদের পালনকর্তার কাছে প্রতিফেরত হব।",
+    "reference": "Masnoon dua for travel recorded in hadith collections and masnoon dua lists (see myislam and Islamic Relief pages).",
+    "reference_source_ids": [
+      "turn0search4",
+      "turn0search15"
+    ]
+  },
+  {
+    "id": 8,
+    "name_en": "Dua Before Entering Toilet",
+    "name_ar": "دعاء دخول الخلاء",
+    "arabic": "بِسْمِ اللَّهِ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبْثِ وَالْخَبَائِثِ",
+    "english": "In the name of Allah; O Allah, I seek refuge in You from male and female devils.",
+    "bangla": "আল্লাহর নামে; হে আল্লাহ, আমি আপনার কাছে আশ্রয় চাই পুরুষ ও নারীর শয়তানের (শয়তানদের) থেকে।",
+    "reference": "Sunan Ibn Majah and other hadith collections (masnoon dua).",
+    "reference_source_ids": [
+      "turn1search7",
+      "turn1search13"
+    ]
+  },
+  {
+    "id": 9,
+    "name_en": "Dua for Seeking Knowledge",
+    "name_ar": "دعاء طلب العلم",
+    "arabic": "رَبِّ زِدْنِي عِلْمًا",
+    "english": "My Lord, increase me in knowledge.",
+    "bangla": "হে আমার Rabb, আমাকে আরো জ্ঞান দাও।",
+    "reference": "Quran 20:114 (Surah Ta-Ha).",
+    "reference_source_ids": [
+      "turn1search0",
+      "turn1search11"
+    ]
+  },
+  {
+    "id": 10,
+    "name_en": "Dua for Parents",
+    "name_ar": "دعاء للوالدين",
+    "arabic": "رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+    "english": "My Lord, have mercy upon them as they brought me up when I was small.",
+    "bangla": "হে আমার Rabb, তাদের উপর দয়া করো যেভাবে তাঁরা আমাকে ছোটবেলায় লালনপালন করেছেন।",
+    "reference": "Quran 17:24 (Surah Al-Isra).",
+    "reference_source_ids": [
+      "turn1search1",
+      "turn1search9"
+    ]
+  },
+  {
+    "id": 11,
+    "name_en": "Istighfar (Seeking Forgiveness)",
+    "name_ar": "الاستغفار",
+    "arabic": "أَسْتَغْفِرُ اللَّهَ",
+    "english": "I seek forgiveness from Allah.",
+    "bangla": "আমি আল্লাহর কাছে ক্ষমা প্রার্থনা করছি।",
+    "reference": "Common prophetic practice; repeated in many hadiths and the Qur'an about repentance (general).",
+    "reference_source_ids": []
+  },
+  {
+    "id": 12,
+    "name_en": "Rabbana (example Quranic dua)",
+    "name_ar": "دعاء ربّنا",
+    "arabic": "رَبَّنَا ظَلَمْنَا أَنفُسَنَا",
+    "english": "Our Lord, we have wronged ourselves...",
+    "bangla": "হে আমাদের Rabb, আমরা নিজেরাই নিজেদের সঙ্গে অন্যায় করেছি...",
+    "reference": "One of many 'Rabbana' duas from the Qur'an; see compilations of 40 Rabbana Duas.",
+    "reference_source_ids": [
+      "turn0search14",
+      "turn0search9"
+    ]
+  }
+
+  ,
+  {
+    "id": 2,
+    "name_en": "Rabbana: Submission and Lineage (Ibrahim's Dua)",
+    "name_ar": "دعاء الذرية المسلمة",
+    "arabic": "رَبَّنَا وَٱجۡعَلۡنَا مُسۡلِمَيۡنِ لَكَ وَمِن ذُرِّيَّتِنَآ أُمَّةٗ مُّسۡلِمَةٗ لَّكَ وَأَرِنَا مَنَاسِكَنَا وَتُبۡ عَلَيۡنَآۖ إِنَّكَ أَنتَ ٱلتَّوَّابُ ٱلرَّحِيمُ",
+    "english": "“Our Lord, and make us Muslims [in submission] to You and from our descendants a Muslim nation [in submission] to You. And show us our rites [of worship] and accept our repentance. Indeed, You are the Accepting of Repentance, the Merciful.”",
+    "bangla": "“হে আমাদের পালনকর্তা, আমাদের আপনার অনুগত করুন এবং আমাদের বংশধরদের মধ্য থেকে আপনার অনুগত জাতি সৃষ্টি করুন। আর আমাদেরকে আমাদের ইবাদতের পদ্ধতি দেখিয়ে দিন এবং আমাদের তওবা কবুল করুন। নিশ্চয়ই আপনি তওবা কবুলকারী, পরম দয়ালু।”",
+    "reference": "Qur'an 2:128. Dua of Prophet Ibrahim (AS).",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 3,
+    "name_en": "Rabbana: Good in Both Worlds (Most Comprehensive)",
+    "name_ar": "دعاء الدنيا والآخرة",
+    "arabic": "رَبَّنَآ ءَاتِنَا فِي ٱلدُّنۡيَا حَسَنَةٗ وَفِي ٱلۡأٓخِرَةِ حَسَنَةٗ وَقِنَا عَذَابَ ٱلنَّارِ",
+    "english": "“Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.”",
+    "bangla": "“হে আমাদের পালনকর্তা, আমাদের দুনিয়াতে কল্যাণ দিন এবং আখেরাতেও কল্যাণ দিন। আর আমাদের জাহান্নামের আযাব থেকে রক্ষা করুন।”",
+    "reference": "Qur'an 2:201. Most comprehensive Dua.",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 4,
+    "name_en": "Rabbana: Patience, Steadfastness, and Victory",
+    "name_ar": "دعاء الصبر والنصر",
+    "arabic": "رَبَّنَآ أَفۡرِغۡ عَلَيۡنَا صَبۡرٗا وَثَبِّتۡ أَقۡدَامَنَا وَٱنصُرۡنَا عَلَى ٱلۡقَوۡمِ ٱلۡكَٰفِرِينَ",
+    "english": "“Our Lord, pour upon us patience and plant firmly our feet and give us victory over the disbelieving people.”",
+    "bangla": "“হে আমাদের পালনকর্তা, আমাদের উপর ধৈর্য ঢেলে দিন, আমাদের পা দৃঢ় করুন এবং অবিশ্বাসীদের জাতির উপর বিজয় দান করুন।”",
+    "reference": "Qur'an 2:250. Prophetic dua for protection and steadfastness.",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 5,
+    "name_en": "Rabbana: Forgiveness for Error or Forgetfulness",
+    "name_ar": "دعاء النسيان والخطأ",
+    "arabic": "رَبَّنَا لَا تُؤَاخِذۡنَآ إِن نَّسِينَآ أَوۡ أَخۡطَأۡنَاۚ",
+    "english": "“Our Lord, do not impose blame upon us if we have forgotten or erred.”",
+    "bangla": "“হে আমাদের পালনকর্তা, যদি আমরা ভুলে যাই বা ভুল করি, তবে আপনি আমাদের পাকড়াও করবেন না।”",
+    "reference": "Qur'an 2:286 (Part 1). Dua for repentance (Tawbah).",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 6,
+    "name_en": "Rabbana: Relief from Severe Burden",
+    "name_ar": "دعاء رفع الإصر",
+    "arabic": "رَبَّنَا وَلَا تَحۡمِلۡ عَلَيۡنَآ إِصۡرٗا كَمَا حَمَلۡتَهُۥ عَلَى ٱلَّذِينَ مِن قَبۡلِنَاۚ",
+    "english": "“Our Lord, and lay not upon us a burden like that which You laid upon those before us.”",
+    "bangla": "“হে আমাদের পালনকর্তা, আর আমাদের উপর এমন ভার চাপিয়ে দেবেন না, যেমন আপনি আমাদের পূর্ববর্তীদের উপর চাপিয়েছিলেন।”",
+    "reference": "Qur'an 2:286 (Part 2). Seeking ease in the path of righteousness.",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 7,
+    "name_en": "Rabbana: Mercy, Pardon, and Divine Victory",
+    "name_ar": "دعاء العفو والمغفرة والنصر",
+    "arabic": "رَبَّنَا وَلَا تُحَمِّلۡنَا مَا لَا طَاقَةَ لَنَا بِهِۦۖ وَٱعۡفُ عَنَّا وَٱغۡفِرۡ لَنَا وَٱرۡحَمۡنَآۚ أَنتَ مَوۡلَىٰنَا فَٱنصُرۡنَا عَلَى ٱلۡقَوۡمِ ٱلۡكَٰفِرِينَ",
+    "english": "“Our Lord, and burden us not with that which we have no ability to bear. And pardon us; and forgive us; and have mercy upon us. You are our protector, so give us victory over the disbelieving people.”",
+    "bangla": "“হে আমাদের পালনকর্তা, এমন বোঝা আমাদের উপর চাপিয়ে দেবেন না যা বহন করার ক্ষমতা আমাদের নেই। আর আপনি আমাদের ক্ষমা করে দিন, আমাদের পাপ মোচন করুন এবং আমাদের প্রতি রহম করুন। আপনিই আমাদের অভিভাবক, সুতরাং কাফেরদের মোকাবিলায় আমাদের সাহায্য করুন।”",
+    "reference": "Qur'an 2:286 (Part 3). Comprehensive petition for protection, pardon, and help.",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 8,
+    "name_en": "Rabbana: Steadfastness in Faith (Preventing Deviation)",
+    "name_ar": "دعاء ثبات القلب",
+    "arabic": "رَبَّنَا لَا تُزِغۡ قُلُوبَنَا بَعۡدَ إِذۡ هَدَيۡتَنَا وَهَبۡ لَنَا مِن لَّدُنكَ رَحۡمَةًۚ إِنَّكَ أَنتَ ٱلۡوَهَّابُ",
+    "english": "“Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower.”",
+    "bangla": "“হে আমাদের পালনকর্তা, আমাদেরকে হিদায়াত দেয়ার পর আপনি আমাদের অন্তরকে বক্র করে দিবেন না, এবং আপনার নিকট থেকে আমাদেরকে রহমত দান করুন। নিশ্চয়ই আপনি মহাদাতা।”",
+    "reference": "Qur'an 3:8. Seeking spiritual perseverance (*thabāt*).",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 9,
+    "name_en": "Rabbana: Affirmation of the Day of Judgment",
+    "name_ar": "دعاء يوم القيامة",
+    "arabic": "رَبَّنَآ إِنَّكَ جَامِعُ ٱلنَّاسِ لِيَوْمٍ لَّا رَيْبَ فِيهِ ۚ إِنَّ ٱللَّهَ لَا يُخْلِفُ ٱلْمِيعَادَ",
+    "english": "“Our Lord, surely You will gather the people for a Day about which there is no doubt. Indeed, Allah does not fail in His promise.”",
+    "bangla": "“হে আমাদের পালনকর্তা, আপনি অবশ্যই মানবজাতিকে এমন এক দিনে একত্রিত করবেন যাতে কোনো সন্দেহ নেই। নিশ্চয়ই আল্লাহ তাঁর অঙ্গীকার ভঙ্গ করেন না।”",
+    "reference": "Qur'an 3:9. Affirming conviction in the Day of Judgment.",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 10,
+    "name_en": "Rabbana: Forgiveness and Protection from Hellfire",
+    "name_ar": "دعاء المغفرة من النار",
+    "arabic": "رَبَّنَآ إِنَّنَآ ءَامَنَّا فَٱغۡفِرۡ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ ٱلنَّارِ",
+    "english": "“Our Lord, indeed we have believed, so forgive us our sins and protect us from the punishment of the Fire”",
+    "bangla": "“হে আমাদের পালনকর্তা, নিশ্চয় আমরা ঈমান এনেছি, তাই আমাদের পাপ ক্ষমা করে দিন এবং আমাদেরকে জাহান্নামের শাস্তি থেকে রক্ষা করুন।”",
+    "reference": "Qur'an 3:16. Declaration of faith and plea for pardon.",
+    "reference_source_ids": [1]
+  },
+  {
+    "id": 11,
+    "name_en": "Dua Upon Leaving the House",
+    "name_ar": "دعاء الخروج من المنزل",
+    "arabic": "بِسْمِ اللّٰهِ، تَوَكَّلْتُ عَلَى اللّٰهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ",
+    "english": "In the Name of Allah, I have placed my trust in Allah; there is no might and no power except by Allah.",
+    "bangla": "“আল্লাহর নামে, আমি আল্লাহর উপর ভরসা করলাম, আল্লাহর সাহায্য ছাড়া (পাপ থেকে রক্ষা পাওয়ার) কোনো ক্ষমতা এবং (নেক কাজ করার) কোনো শক্তি নেই।”",
+    "reference": "Hadith reported in Abu Dawud 4/325, At-Tirmithi 5/490, An-Nasa'i.",
+    "reference_source_ids": [2, 3]
+  },
+  {
+    "id": 12,
+    "name_en": "Dua Before Entering the Toilet",
+    "name_ar": "دعاء دخول الخلاء",
+    "arabic": "بِسْمِ اللَّهِ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبْثِ وَالْخَبَائِثِ",
+    "english": "In the name of Allah. O Allah, I seek refuge with You from the male and female devils (evil beings).",
+    "bangla": "“আল্লাহর নামে। হে আল্লাহ! আমি আপনার নিকট অপবিত্র নর ও নারী শয়তান থেকে আশ্রয় প্রার্থনা করছি।”",
+    "reference": "Hadith reported in Sahih Bukhari, Muslim, Abu Dawud, Ibn Majah (Hisnul Muslim).",
+    "reference_source_ids": [4, 5]
+  },
+  {
+    "id": 13,
+    "name_en": "Dua After Exiting the Toilet",
+    "name_ar": "دعاء الخروج من الخلاء",
+    "arabic": "غُفْرَانَكَ",
+    "english": "Your forgiveness.",
+    "bangla": "“আপনার ক্ষমা।”",
+    "reference": "Hadith reported in At-Tirmidhi 7.",
+    "reference_source_ids": [5]
+  },
+  {
+    "id": 14,
+    "name_en": "Dua After Eating (Comprehensive Gratitude)",
+    "name_ar": "دعاء بعد الأكل (الحمد)",
+    "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مِنَ الْمُسْلِمِينَ",
+    "english": "Praise be to Allah who has provided us with food and drink and made us among those who submit to Him.",
+    "bangla": "“সকল প্রশংসা আল্লাহর যিনি আমাদেরকে আহার করিয়েছেন ও পান করিয়েছেন এবং আমাদেরকে মুসলমানদের অন্তর্ভুক্ত করেছেন।”",
+    "reference": "Hadith reported in Abu Dawud (Hisnul Muslim 180 variation).",
+    "reference_source_ids": [6, 7]
+  },
+  {
+    "id": 15,
+    "name_en": "Dua After Eating (For Forgiveness of Sins)",
+    "name_ar": "دعاء بعد الأكل (المغفرة)",
+    "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+    "english": "Praise is to Allah Who has fed me this and provided it for me without any strength or power on my part.",
+    "bangla": "“সকল প্রশংসা আল্লাহর যিনি আমাকে এটা খাইয়েছেন এবং আমার কোনো শক্তি বা সামর্থ্য ছাড়াই আমাকে এটি দান করেছেন।”",
+    "reference": "Hadith reported in Sunan Ibn Majah 3285 (results in forgiveness of previous sins).",
+    "reference_source_ids": [8]
+  },
+  {
+    "id": 16,
+    "name_en": "Dua for Protection Before Sleep",
+    "name_ar": "دعاء الحفظ قبل النوم",
+    "arabic": "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
+    "english": "In the Name of Allah with Whose Name there is protection against every kind of harm in the earth or in the heaven, and He is the All-Hearing and All- Knowing.",
+    "bangla": "“আল্লাহর নামে, যাঁর নামের সাথে আকাশ ও পৃথিবীর কোনো কিছুই ক্ষতি করতে পারে না, আর তিনি সর্বশ্রোতা, সর্বজ্ঞ।”",
+    "reference": "Hadith reported in Abu Dawood (Recited three times before sleeping).",
+    "reference_source_ids": [9]
+  },
+  {
+    "id": 17,
+    "name_en": "Dua for Anxiety, Sorrow, and Debts",
+    "name_ar": "دعاء الهم والحزن والدين",
+    "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ",
+    "english": "O Allah, I take refuge in you from anxiety and sorrow, weakness and laziness, miserliness and cowardice, the burden of debts and from being overpowered by men.",
+    "bangla": "“হে আল্লাহ, আমি আপনার কাছে আশ্রয় চাই দুশ্চিন্তা ও মনোকষ্ট থেকে, অপারগতা ও অলসতা থেকে, কৃপণতা ও কাপুরুষতা থেকে, ঋণের বোঝা ও মানুষের প্রাধান্য থেকে।”",
+    "reference": "Hadith reported in Sahih Al-Bukhari (Hisnul Muslim).",
+    "reference_source_ids": [10]
+  },
+  {
+    "id": 18,
+    "name_en": "Dua for Protection from Self's Evil (*Nafs*)",
+    "name_ar": "دعاء شر النفس",
+    "arabic": "اللهم إني أعوذ بك من شر سمعي، ومن شر بصري، ومن شر لساني، ومن شر قلبي، ومن شر منيي",
+    "english": "Oh Allah, I seek protection in you from the evil of my hearing, from the evil of my sight, from the evil of my tongue, from the evil of my heart, and from the evil of myself.",
+    "bangla": "“হে আল্লাহ, আমি আপনার কাছে আমার কান, আমার চোখ, আমার জিহ্বা, আমার হৃদয় এবং আমার নফসের (মনের) মন্দ থেকে আশ্রয় চাই।”",
+    "reference": "Masnoon Dua (Reported by Abu Dawud, At-Tirmidhi).",
+    "reference_source_ids": [11]
+  },
+  {
+    "id": 19,
+    "name_en": "Dua for Seeking Ease and Blessing in Destiny (Istikhara)",
+    "name_ar": "دعاء تيسير القدر",
+    "arabic": "اللهم إن كان هذا الأمر خيرا لي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ",
+    "english": "Oh Allah, if my intended action is best for me, make it destined and easy for me, and grant me Your Blessings in it.",
+    "bangla": "“হে আল্লাহ, যদি এই কাজটি আমার জন্য কল্যাণকর হয়, তবে এটিকে আমার জন্য নির্ধারণ করুন এবং সহজ করে দিন, এরপর এতে আমার জন্য বরকত দিন।”",
+    "reference": "Part of the greater Istikhara supplication (Masnoon Dua).",
+    "reference_source_ids": [11]
+  },
+  {
+    "id": 20,
+    "name_en": "Dua of Sufficiency and Reliance (*Tawakkul*)",
+    "name_ar": "دعاء حسبنا الله ونعم الوكيل",
+    "arabic": "حَسْبُنَا ٱللَّهُ وَنِعْمَ ٱلْوَكِيلُ",
+    "english": "Allah is sufficient for us, and He is the [best] Disposer of affairs.",
+    "bangla": "“আল্লাহই আমাদের জন্য যথেষ্ট, আর তিনিই উত্তম কর্মবিধায়ক।”",
+    "reference": "Qur'an 3:173, reported in Sahih Al-Bukhari (Hisnul Muslim).",
+    "reference_source_ids": [10]
+  },
+  {
+    "id": 21,
+    "name_en": "Sayyid al-Istighfar (The Master of Forgiveness)",
+    "name_ar": "سيد الاستغفار",
+    "arabic": "اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَهَ إِلاَّ أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَىَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لاَ يَغْفِرُ الذُّنُوبَ إِلاَّ أَنْتَ",
+    "english": "O Allah! You are my Rabb. There is no true god except You. You have created me, and I am Your slave, and I hold to Your Covenant as far as I can. I seek refuge in You from the evil of what I have done. I acknowledge the favours that You have bestowed upon me, and I confess my sins. Pardon me, for none but You has the power to pardon.",
+    "bangla": "“হে আল্লাহ! আপনি আমার রব। আপনি ছাড়া আর কোনো ইলাহ নেই। আপনি আমাকে সৃষ্টি করেছেন এবং আমি আপনার বান্দা, আর আমি আপনার অঙ্গীকার ও প্রতিশ্রুতির উপর সাধ্যমত প্রতিষ্ঠিত আছি। আমি আমার কৃতকর্মের অনিষ্ট থেকে আপনার কাছে আশ্রয় চাই। আমার প্রতি আপনার নেয়ামত স্বীকার করছি এবং আমার গুনাহও স্বীকার করছি। অতএব, আপনি আমাকে ক্ষমা করুন, কেননা আপনি ছাড়া আর কেউ গুনাহ ক্ষমা করতে পারে না।”",
+    "reference": "Hadith reported in Sahih Al-Bukhari (Hisnul Muslim). Recommended for morning and evening.",
+    "reference_source_ids": [9]
+  },
+
+  {
+  "id": 22,
+  "name_en": "Rabbana: Forgiveness for Parents and Believers",
+  "name_ar": "دعاء الوالدين والمؤمنين",
+  "arabic": "رَبَّنَا ٱغۡفِرۡ لِي وَلِوَٰلِدَيَّ وَلِلۡمُؤۡمِنِينَ يَوۡمَ يَقُومُ ٱلۡحِسَابُ",
+  "english": "Our Lord! Forgive me, my parents, and the believers on the Day when the reckoning will be established.",
+  "bangla": "“হে আমাদের পালনকর্তা! আমাকে, আমার পিতা-মাতাকে এবং মুমিনদেরকে ক্ষমা করুন যেদিন হিসাব কায়েম হবে।”",
+  "reference": "Qur'an 14:41. Dua of Prophet Ibrahim (AS).",
+  "reference_source_ids": [1]
+},
+{
+  "id": 23,
+  "name_en": "Rabbana: Patience and Death in Submission",
+  "name_ar": "دعاء الصبر والتوفى مسلمين",
+  "arabic": "رَبَّنَآ أَفۡرِغۡ عَلَيۡنَا صَبۡرٗا وَتَوَفَّنَا مُسۡلِمِينَ",
+  "english": "Our Lord! Pour upon us patience and let us die as Muslims in submission to You.",
+  "bangla": "“হে আমাদের পালনকর্তা! আমাদের উপর ধৈর্য ঢেলে দিন এবং আমাদেরকে মুসলমান অবস্থায় মৃত্যু দিন।”",
+  "reference": "Qur'an 7:126. Dua of magicians after believing in Musa (AS).",
+  "reference_source_ids": [1]
+},
+{
+  "id": 24,
+  "name_en": "Rabbana: Remove Hatred and Grant Mercy",
+  "name_ar": "دعاء إزالة الغل",
+  "arabic": "رَبَّنَا ٱغۡفِرۡ لَنَا وَلِإِخۡوَٰنِنَا ٱلَّذِينَ سَبَقُونَا بِٱلۡإِيمَٰنِ وَلَا تَجۡعَلۡ فِي قُلُوبِنَا غِلًّا لِّلَّذِينَ ءَامَنُواْ رَبَّنَآ إِنَّكَ رَءُوفٞ رَّحِيمٌ",
+  "english": "Our Lord! Forgive us and our brothers who preceded us in faith and put not in our hearts any resentment toward those who have believed. Our Lord, indeed You are Kind and Merciful.",
+  "bangla": "“হে আমাদের পালনকর্তা! আমাদেরকে এবং আমাদের সেই ভাইদেরকে ক্ষমা করুন যারা ঈমানের ব্যাপারে আমাদের আগে চলে গেছেন। আর যারা ঈমান এনেছেন তাদের প্রতি আমাদের অন্তরে বিদ্বেষ রাখবেন না। হে আমাদের পালনকর্তা! নিশ্চয়ই আপনি পরম দয়ালু, অতি দয়ালু।”",
+  "reference": "Qur'an 59:10. Dua of the believers.",
+  "reference_source_ids": [1]
+},
+{
+  "id": 25,
+  "name_en": "Rabbana: Perfect Our Light and Forgive Us",
+  "name_ar": "دعاء إتمام النور",
+  "arabic": "رَبَّنَآ أَتۡمِمۡ لَنَا نُورَنَا وَٱغۡفِرۡ لَنَآۖ إِنَّكَ عَلَىٰ كُلِّ شَيۡءٖ قَدِيرٞ",
+  "english": "Our Lord! Perfect for us our light and forgive us. Indeed, You are over all things competent.",
+  "bangla": "“হে আমাদের পালনকর্তা! আমাদের জন্য আমাদের নূর পূর্ণ করুন এবং আমাদেরকে ক্ষমা করুন। নিশ্চয়ই আপনি সবকিছুর উপর ক্ষমতাবান।”",
+  "reference": "Qur'an 66:8. Dua of the believers on the Day of Judgment.",
+  "reference_source_ids": [1]
+}
+
+]

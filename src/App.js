@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Book, Play, Pause, Volume2, Globe, Moon, Sun, Menu, X, Search, Star, BookOpen, Headphones, ArrowLeft, DockIcon } from 'lucide-react';
+import { ChevronRight, Book, Play, Pause, Volume2, Globe, Moon, Sun, Menu, X, Search, Star, BookOpen, Headphones, ArrowLeft, DockIcon, BookText } from 'lucide-react';
+import HadithBook from './components/HadithBook';
+import HadithCollection from './components/HadithCollection';
 
 function App() {
   const [surahs, setSurahs] = useState([]);
@@ -15,6 +17,19 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState('surahs');
   const [currentAudioUrl, setCurrentAudioUrl] = useState(null);
+  const [searchDua, setSearchDua] = useState('');
+  const [duas, setDuas] = useState([]);
+  const [names, setNames] = useState([]);
+  const [searchName, setSearchName] = useState('');
+  const [hadithBooks, setHadithBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [hadithCollection, setHadithCollection] = useState(null);
+  const [searchHadith, setSearchHadith] = useState('');
+  const [selectedHadithBook, setSelectedHadithBook] = useState(null);
+  const [hadithData, setHadithData] = useState(null);
+  const [selectedSection, setSelectedSection] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const hadithsPerPage = 10;
 
   const reciters = [
     { id: '1', name: 'Mishary Rashid Al Afasy', country: 'Kuwait' },
@@ -26,6 +41,9 @@ function App() {
 
   useEffect(() => {
     fetchSurahs();
+    fetchDuas();
+    fetchNames();
+    fetchHadithBooks();
     // Apply dark mode class to document
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -56,38 +74,95 @@ function App() {
     setLoading(false);
   };
 
-const searchVerse = async () => {
-  if (!verseSearchSurah || !verseSearchAyah) return;
-
-  setLoading(true);
-  try {
-    // Fetch verse data
-    const verseResponse = await fetch(`https://quranapi.pages.dev/api/${verseSearchSurah}/${verseSearchAyah}.json`);
-    if (!verseResponse.ok) throw new Error('Failed to fetch verse');
-    const verseData = await verseResponse.json();
-
-    // Fetch tafsir data
-    let tafsirs = [];
+  const fetchDuas = async () => {
     try {
-      const tafsirResponse = await fetch(`https://quranapi.pages.dev/api/tafsir/${verseSearchSurah}_${verseSearchAyah}.json`);
-      if (tafsirResponse.ok) {
-        const tafsirData = await tafsirResponse.json();
-        tafsirs = tafsirData.tafsirs || [];
-      } else {
-        console.warn(`Tafsir not available for Surah ${verseSearchSurah}, Ayah ${verseSearchAyah}`);
-      }
-    } catch (tafsirError) {
-      console.warn('Error fetching tafsir:', tafsirError);
+      const response = await fetch('/assets/duas.json');
+      const data = await response.json();
+      setDuas(data);
+      
+    } catch (error) {
+      console.error('Error fetching duas:', error);
     }
+  };
 
-    // Combine verse and tafsir data
-    setSearchedVerse({ ...verseData, tafsirs });
-  } catch (error) {
-    console.error('Error fetching verse:', error);
-    setSearchedVerse(null); // Clear state on error
-  }
-  setLoading(false);
-};
+  const fetchNames = async () => {
+    try {
+      const response = await fetch('/assets/asmaul_husna.json');
+      const data = await response.json();
+      setNames(data);
+    } catch (error) {
+      console.error('Error fetching Asmaul Husna:', error);
+    }
+  };
+
+  // Fetch hadith books
+  const fetchHadithBooks = async () => {
+    try {
+      const response = await fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions.json');
+      const data = await response.json();
+      console.log(data)
+      // Transform the data into a more usable format
+      const books = Object.entries(data).map(([key, value]) => ({
+        id: key,
+        name: value.name,
+        collections: value.collection
+      }));
+      
+      setHadithBooks(books);
+      console.log('Fetched hadith books:', books);
+    } catch (error) {
+      console.error('Error fetching hadith books:', error);
+    }
+  };
+
+  // Fix the fetchHadithCollection function
+  const fetchHadithCollection = async (url) => {
+    setLoading(true);
+    setCurrentPage(1); // Reset to first page
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setHadithCollection(data);
+    } catch (error) {
+      console.error('Error fetching hadith collection:', error);
+      setHadithCollection(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const searchVerse = async () => {
+    if (!verseSearchSurah || !verseSearchAyah) return;
+
+    setLoading(true);
+    try {
+      // Fetch verse data
+      const verseResponse = await fetch(`https://quranapi.pages.dev/api/${verseSearchSurah}/${verseSearchAyah}.json`);
+      if (!verseResponse.ok) throw new Error('Failed to fetch verse');
+      const verseData = await verseResponse.json();
+
+      // Fetch tafsir data
+      let tafsirs = [];
+      try {
+        const tafsirResponse = await fetch(`https://quranapi.pages.dev/api/tafsir/${verseSearchSurah}_${verseSearchAyah}.json`);
+        if (tafsirResponse.ok) {
+          const tafsirData = await tafsirResponse.json();
+          tafsirs = tafsirData.tafsirs || [];
+        } else {
+          console.warn(`Tafsir not available for Surah ${verseSearchSurah}, Ayah ${verseSearchAyah}`);
+        }
+      } catch (tafsirError) {
+        console.warn('Error fetching tafsir:', tafsirError);
+      }
+
+      // Combine verse and tafsir data
+      setSearchedVerse({ ...verseData, tafsirs });
+    } catch (error) {
+      console.error('Error fetching verse:', error);
+      setSearchedVerse(null); // Clear state on error
+    }
+    setLoading(false);
+  };
 
   // const playAudio = (audioUrl) => {
   //   if (currentAudio) {
@@ -155,6 +230,20 @@ const pauseAudio = () => {
     surah.surahName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     surah.surahNameTranslation.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const navigationTabs = [
+    { id: 'surahs', label: 'Surahs', icon: Book },
+    { id: 'verse-search', label: 'Verse Search', icon: Search },
+    { id: 'reciters', label: 'Reciters', icon: Headphones },
+    { id: 'duas', label: 'Duas', icon: BookOpen },
+    { id: 'asmaul-husna', label: 'Asmaul Husna', icon: Star },  // Add this
+    { id: 'hadith', label: 'Hadith', icon: BookText } // Add this
+  ];
+
+  // Add this helper function
+  const paginate = (array, pageSize, pageNumber) => {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+  };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
@@ -273,11 +362,7 @@ const pauseAudio = () => {
                 
                 {/* Navigation Tabs */}
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 w-full max-w-md sm:max-w-none mx-auto">
-  {[
-    { id: 'surahs', label: 'Surahs', icon: Book },
-    { id: 'verse-search', label: 'Verse Search with Tafsir', icon: Search },
-    { id: 'reciters', label: 'Reciters', icon: Headphones }
-  ].map((tab) => {
+  {navigationTabs.map((tab) => {
     const Icon = tab.icon;
     return (
       <button
@@ -380,217 +465,215 @@ const pauseAudio = () => {
             )}
 
             {/* Verse Search Section */}
-{/* Verse Search Section */}
-{activeSection === 'verse-search' && (
-  <div className="mb-12">
-    <div className={`p-8 rounded-2xl ${
-      darkMode 
-        ? 'bg-slate-800/50 border border-slate-700' 
-        : 'bg-white/70 border border-emerald-200'
-    } backdrop-blur-sm`}>
-      <h3 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-white' : 'text-slate-800'}`}>
-        Search Specific Verse
-      </h3>
-      
-      <div className="flex flex-wrap gap-4 justify-center items-end mb-6">
-        <div>
-          <label className={`block text-sm font-medium mb-2 ${
-            darkMode ? 'text-slate-300' : 'text-slate-700'
-          }`}>
-            Surah Number
-          </label>
-          <input
-            type="number"
-            min="1"
-            max="114"
-            value={verseSearchSurah}
-            onChange={(e) => setVerseSearchSurah(e.target.value)}
-            className={`px-4 py-3 rounded-lg border transition-colors ${
-              darkMode 
-                ? 'bg-slate-700 border-slate-600 text-white' 
-                : 'bg-white border-slate-300 text-slate-800'
-            }`}
-          />
-        </div>
-        
-        <div>
-          <label className={`block text-sm font-medium mb-2 ${
-            darkMode ? 'text-slate-300' : 'text-slate-700'
-          }`}>
-            Verse Number
-          </label>
-          <input
-            type="number"
-            min="1"
-            value={verseSearchAyah}
-            onChange={(e) => setVerseSearchAyah(e.target.value)}
-            className={`px-4 py-3 rounded-lg border transition-colors ${
-              darkMode 
-                ? 'bg-slate-700 border-slate-600 text-white' 
-                : 'bg-white border-slate-300 text-slate-800'
-            }`}
-          />
-        </div>
-        
-        <button
-          onClick={searchVerse}
-          disabled={loading}
-          className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-            darkMode 
-              ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
-              : 'bg-emerald-500 hover:bg-emerald-600 text-white'
-          } disabled:opacity-50`}
-        >
-          {loading ? 'Searching...' : 'Search Verse'}
-        </button>
-      </div>
-
-
-      {/* Searched Verse Result */}
-      {searchedVerse && (
-        <div className={`p-6 rounded-xl ${
-          darkMode 
-            ? 'bg-slate-900/50 border border-slate-600' 
-            : 'bg-emerald-50 border border-emerald-200'
-        }`}>
-          <div className="text-center mb-4">
-            <h4 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-800'}`}>
-              {searchedVerse.surahName} - Verse {searchedVerse.ayahNo}
-            </h4>
-            <p className={`text-lg ${darkMode ? 'text-emerald-300' : 'text-emerald-600'}`}>
-              {searchedVerse.surahNameTranslation}
-            </p>
-          </div>
-          
-          {/* Upper Line: Selected Language Verse */}
-          <p className={`text-lg leading-relaxed text-center ${
-            darkMode ? 'text-white' : 'text-slate-800'
-          }`} style={{
-            direction: selectedLanguage === 'arabic' || selectedLanguage === 'urdu' ? 'rtl' : 'ltr',
-            fontFamily: selectedLanguage === 'arabic' ? 'Amiri, serif' : selectedLanguage === 'bengali' ? 'Kalpurush, serif' : 'inherit'
-          }}>
-            {getLanguageText(searchedVerse, 'verse')}
-          </p>
-          
-          {/* Lower Line: Bengali Verse (always shown, regular font) */}
-          {searchedVerse.bengali ? (
-            <p className={`text-lg leading-relaxed font-normal text-center mt-2 ${
-              darkMode ? 'text-slate-300' : 'text-slate-600'
-            }`} style={{
-              direction: 'ltr',
-              fontFamily: 'Kalpurush, serif'
-            }}>
-              {searchedVerse.bengali}
-            </p>
-          ) : (
-            <p className={`text-sm text-center mt-2 ${
-              darkMode ? 'text-slate-400' : 'text-slate-500'
-            }`}>
-              Bengali translation unavailable
-            </p>
-          )}
-
-          {/* Audio for searched verse */}
-          {searchedVerse.audio && (
-            <div className="flex flex-wrap justify-center mt-4 gap-3">
-              {Object.entries(searchedVerse.audio).slice(0, 3).map(([id, audio]) => (
-                <button
-                  key={id}
-                  onClick={() => isPlaying ? pauseAudio() : playAudio(audio.url)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                    darkMode 
-                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
-                      : 'bg-emerald-500 hover:bg-emerald-600 text-white'
-                  }`}
-                >
-                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                  <span className="text-sm">{audio.reciter.split(' ')[0]}</span>
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Tafsir Section */}
-          {searchedVerse.tafsirs && searchedVerse.tafsirs.length > 0 ? (
-            <div className="mt-8">
-              <h4 className={`text-2xl font-bold mb-6 text-center ${
-                darkMode ? 'text-white' : 'text-slate-800'
-              }`}>
-                📖 Tafsir
-              </h4>
-              <div className="space-y-6">
-                {searchedVerse.tafsirs.map((tafsir, index) => (
-                  <div
-                    key={index}
-                    className={`p-6 rounded-lg shadow-sm ${
-                      darkMode
-                        ? 'bg-slate-800/70 border border-slate-600'
-                        : 'bg-white/90 border border-emerald-300'
-                    } backdrop-blur-sm`}
-                  >
-                    <h5 className={`text-xl font-semibold mb-3 ${
-                      darkMode ? 'text-emerald-300' : 'text-emerald-600'
-                    }`}>
-                      {tafsir.author}
-                    </h5>
-                    {tafsir.groupVerse && (
-                      <p className={`text-sm italic mb-3 ${
-                        darkMode ? 'text-slate-400' : 'text-slate-500'
+            {activeSection === 'verse-search' && (
+              <div className="mb-12">
+                <div className={`p-8 rounded-2xl ${
+                  darkMode 
+                    ? 'bg-slate-800/50 border border-slate-700' 
+                    : 'bg-white/70 border border-emerald-200'
+                } backdrop-blur-sm`}>
+                  <h3 className={`text-3xl font-bold mb-6 text-center ${darkMode ? 'text-white' : 'text-slate-800'}`}>
+                    Search Specific Verse
+                  </h3>
+                  
+                  <div className="flex flex-wrap gap-4 justify-center items-end mb-6">
+                    <div>
+                      <label className={`block text-sm font-medium mb-2 ${
+                        darkMode ? 'text-slate-300' : 'text-slate-700'
                       }`}>
-                        {tafsir.groupVerse}
-                      </p>
-                    )}
-                    <div className={`text-base leading-relaxed ${
-                      darkMode ? 'text-slate-200' : 'text-slate-700'
+                        Surah Number
+                      </label>
+                      <input
+                        type="number"
+                        min="1"
+                        max="114"
+                        value={verseSearchSurah}
+                        onChange={(e) => setVerseSearchSurah(e.target.value)}
+                        className={`px-4 py-3 rounded-lg border transition-colors ${
+                          darkMode 
+                            ? 'bg-slate-700 border-slate-600 text-white' 
+                            : 'bg-white border-slate-300 text-slate-800'
+                        }`}
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className={`block text-sm font-medium mb-2 ${
+                        darkMode ? 'text-slate-300' : 'text-slate-700'
+                      }`}>
+                        Verse Number
+                      </label>
+                      <input
+                        type="number"
+                        min="1"
+                        value={verseSearchAyah}
+                        onChange={(e) => setVerseSearchAyah(e.target.value)}
+                        className={`px-4 py-3 rounded-lg border transition-colors ${
+                          darkMode 
+                            ? 'bg-slate-700 border-slate-600 text-white' 
+                            : 'bg-white border-slate-300 text-slate-800'
+                        }`}
+                      />
+                    </div>
+                    
+                    <button
+                      onClick={searchVerse}
+                      disabled={loading}
+                      className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                        darkMode 
+                          ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
+                          : 'bg-emerald-500 hover:bg-emerald-600 text-white'
+                      } disabled:opacity-50`}
+                    >
+                      {loading ? 'Searching...' : 'Search Verse'}
+                    </button>
+                  </div>
+
+                  {/* Searched Verse Result */}
+                  {searchedVerse && (
+                    <div className={`p-6 rounded-xl ${
+                      darkMode 
+                        ? 'bg-slate-900/50 border border-slate-600' 
+                        : 'bg-emerald-50 border border-emerald-200'
                     }`}>
-                      {tafsir.content.split('\n\n').map((paragraph, idx) => {
-                        // Detect markdown headings (##)
-                        if (paragraph.startsWith('## ')) {
-                          return (
-                            <h6
-                              key={idx}
-                              className={`text-lg font-bold mt-4 mb-2 ${
-                                darkMode ? 'text-slate-100' : 'text-slate-800'
+                      <div className="text-center mb-4">
+                        <h4 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-800'}`}>
+                          {searchedVerse.surahName} - Verse {searchedVerse.ayahNo}
+                        </h4>
+                        <p className={`text-lg ${darkMode ? 'text-emerald-300' : 'text-emerald-600'}`}>
+                          {searchedVerse.surahNameTranslation}
+                        </p>
+                      </div>
+                      
+                      {/* Upper Line: Selected Language Verse */}
+                      <p className={`text-lg leading-relaxed text-center ${
+                        darkMode ? 'text-white' : 'text-slate-800'
+                      }`} style={{
+                        direction: selectedLanguage === 'arabic' || selectedLanguage === 'urdu' ? 'rtl' : 'ltr',
+                        fontFamily: selectedLanguage === 'arabic' ? 'Amiri, serif' : selectedLanguage === 'bengali' ? 'Kalpurush, serif' : 'inherit'
+                      }}>
+                        {getLanguageText(searchedVerse, 'verse')}
+                      </p>
+                      
+                      {/* Lower Line: Bengali Verse (always shown, regular font) */}
+                      {searchedVerse.bengali ? (
+                        <p className={`text-lg leading-relaxed font-normal text-center mt-2 ${
+                          darkMode ? 'text-slate-300' : 'text-slate-600'
+                        }`} style={{
+                          direction: 'ltr',
+                          fontFamily: 'Kalpurush, serif'
+                        }}>
+                          {searchedVerse.bengali}
+                        </p>
+                      ) : (
+                        <p className={`text-sm text-center mt-2 ${
+                          darkMode ? 'text-slate-400' : 'text-slate-500'
+                        }`}>
+                          Bengali translation unavailable
+                        </p>
+                      )}
+
+                      {/* Audio for searched verse */}
+                      {searchedVerse.audio && (
+                        <div className="flex flex-wrap justify-center mt-4 gap-3">
+                          {Object.entries(searchedVerse.audio).slice(0, 3).map(([id, audio]) => (
+                            <button
+                              key={id}
+                              onClick={() => isPlaying ? pauseAudio() : playAudio(audio.url)}
+                              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                                darkMode 
+                                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
+                                  : 'bg-emerald-500 hover:bg-emerald-600 text-white'
                               }`}
                             >
-                              {paragraph.replace('## ', '')}
-                            </h6>
-                          );
-                        }
-                        // Detect Arabic text (simplified check for Arabic characters)
-                        const isArabic = /[\u0600-\u06FF]/.test(paragraph);
-                        return (
-                          <p
-                            key={idx}
-                            className={`mb-3 ${isArabic ? 'text-right' : 'text-left'} ${
-                              darkMode ? 'text-slate-200' : 'text-slate-700'
-                            }`}
-                            style={{
-                              fontFamily: isArabic ? 'Amiri, serif' : 'inherit',
-                              direction: isArabic ? 'rtl' : 'ltr'
-                            }}
-                          >
-                            {paragraph}
-                          </p>
-                        );
-                      })}
+                              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                              <span className="text-sm">{audio.reciter.split(' ')[0]}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Tafsir Section */}
+                      {searchedVerse.tafsirs && searchedVerse.tafsirs.length > 0 ? (
+                        <div className="mt-8">
+                          <h4 className={`text-2xl font-bold mb-6 text-center ${
+                            darkMode ? 'text-white' : 'text-slate-800'
+                          }`}>
+                            📖 Tafsir
+                          </h4>
+                          <div className="space-y-6">
+                            {searchedVerse.tafsirs.map((tafsir, index) => (
+                              <div
+                                key={index}
+                                className={`p-6 rounded-lg shadow-sm ${
+                                  darkMode
+                                    ? 'bg-slate-800/70 border border-slate-600'
+                                    : 'bg-white/90 border border-emerald-300'
+                                } backdrop-blur-sm`}
+                              >
+                                <h5 className={`text-xl font-semibold mb-3 ${
+                                  darkMode ? 'text-emerald-300' : 'text-emerald-600'
+                                }`}>
+                                  {tafsir.author}
+                                </h5>
+                                {tafsir.groupVerse && (
+                                  <p className={`text-sm italic mb-3 ${
+                                    darkMode ? 'text-slate-400' : 'text-slate-500'
+                                  }`}>
+                                    {tafsir.groupVerse}
+                                  </p>
+                                )}
+                                <div className={`text-base leading-relaxed ${
+                                  darkMode ? 'text-slate-200' : 'text-slate-700'
+                                }`}>
+                                  {tafsir.content.split('\n\n').map((paragraph, idx) => {
+                                    // Detect markdown headings (##)
+                                    if (paragraph.startsWith('## ')) {
+                                      return (
+                                        <h6
+                                          key={idx}
+                                          className={`text-lg font-bold mt-4 mb-2 ${
+                                            darkMode ? 'text-slate-100' : 'text-slate-800'
+                                          }`}
+                                        >
+                                          {paragraph.replace('## ', '')}
+                                        </h6>
+                                      );
+                                    }
+                                    // Detect Arabic text (simplified check for Arabic characters)
+                                    const isArabic = /[\u0600-\u06FF]/.test(paragraph);
+                                    return (
+                                      <p
+                                        key={idx}
+                                        className={`mb-3 ${isArabic ? 'text-right' : 'text-left'} ${
+                                          darkMode ? 'text-slate-200' : 'text-slate-700'
+                                        }`}
+                                        style={{
+                                          fontFamily: isArabic ? 'Amiri, serif' : 'inherit',
+                                          direction: isArabic ? 'rtl' : 'ltr'
+                                        }}
+                                      >
+                                        {paragraph}
+                                      </p>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <p className={`text-center mt-4 text-sm ${
+                          darkMode ? 'text-slate-400' : 'text-slate-500'
+                        }`}>
+                          No tafsir available for this verse.
+                        </p>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  )}
+                </div>
               </div>
-            </div>
-          ) : (
-            <p className={`text-center mt-4 text-sm ${
-              darkMode ? 'text-slate-400' : 'text-slate-500'
-            }`}>
-              No tafsir available for this verse.
-            </p>
-          )}
-        </div>
-      )}
-    </div>
-  </div>
-)}
+            )}
 
             {/* Reciters Section */}
             {activeSection === 'reciters' && (
@@ -632,6 +715,257 @@ const pauseAudio = () => {
                 </div>
               </div>
             )}
+
+            {/* Duas Section */}
+            {activeSection === 'duas' && (
+  <div className="mb-12">
+    <div className={`p-8 rounded-2xl ${
+      darkMode 
+        ? 'bg-slate-800/50 border border-slate-700' 
+        : 'bg-white/70 border border-emerald-200'
+    } backdrop-blur-sm`}>
+      <h3 className={`text-3xl font-bold mb-6 text-center ${
+        darkMode ? 'text-white' : 'text-slate-800'
+      }`}>
+        Islamic Duas Collection
+      </h3>
+
+      {/* Search Bar for Duas */}
+      <div className="relative w-full max-w-md mx-auto mb-8">
+        <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
+          darkMode ? 'text-slate-400' : 'text-slate-500'
+        }`} />
+        <input
+          type="text"
+          placeholder="Search Duas..."
+          value={searchDua}
+          onChange={(e) => setSearchDua(e.target.value)}
+          className={`pl-10 pr-4 py-3 rounded-xl border transition-colors w-full ${
+            darkMode 
+              ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400' 
+              : 'bg-white border-slate-300 text-slate-800 placeholder-slate-500'
+          }`}
+        />
+      </div>
+
+      {/* Duas Grid */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {duas
+          .filter(dua => 
+            dua.name_en.toLowerCase().includes(searchDua.toLowerCase()) ||
+            dua.name_ar.includes(searchDua)
+          )
+          .map((dua) => (
+            <div
+              key={dua.id}
+              className={`p-6 rounded-xl transition-all duration-300 hover:scale-105 ${
+                darkMode 
+                  ? 'bg-slate-800/50 hover:bg-slate-800/70 border border-slate-700' 
+                  : 'bg-white/70 hover:bg-white border border-emerald-200'
+              } backdrop-blur-sm`}
+            >
+              {/* Dua Number Badge */}
+              <div className="flex justify-between items-start mb-4">
+           
+                <Star className={`w-5 h-5 ${
+                  darkMode ? 'text-emerald-400' : 'text-emerald-500'
+                }`} />
+              </div>
+
+              {/* Dua Title */}
+              <h4 className={`text-lg font-bold mb-2 ${
+                darkMode ? 'text-white' : 'text-slate-800'
+              }`}>
+                {dua.name_en}
+              </h4>
+              
+              {/* Arabic Title */}
+              <p className={`text-lg mb-4 ${
+                darkMode ? 'text-emerald-300' : 'text-emerald-600'
+              }`} style={{fontFamily: 'Amiri, serif', direction: 'rtl'}}>
+                {dua.name_ar}
+              </p>
+
+              {/* Arabic Text */}
+              <p className={`text-xl mb-3 leading-relaxed ${
+                darkMode ? 'text-white' : 'text-slate-800'
+              }`} style={{fontFamily: 'Amiri, serif', direction: 'rtl'}}>
+                {dua.arabic}
+              </p>
+
+              {/* English Translation */}
+              <p className={`text-sm mb-3 ${
+                darkMode ? 'text-slate-300' : 'text-slate-600'
+              }`}>
+                {dua.english}
+              </p>
+
+              {/* Bengali Translation */}
+              <p className={`text-sm mb-4 ${
+                darkMode ? 'text-slate-300' : 'text-slate-600'
+              }`} style={{fontFamily: 'Kalpurush, serif'}}>
+                {dua.bangla}
+              </p>
+
+              {/* Reference */}
+              <div className={`text-xs mt-4 pt-4 border-t ${
+                darkMode ? 'border-slate-700' : 'border-slate-200'
+              }`}>
+                <span className={`inline-block px-3 py-1 rounded-full ${
+                  darkMode 
+                    ? 'bg-slate-700 text-slate-300' 
+                    : 'bg-slate-100 text-slate-600'
+                }`}>
+                  {dua.reference}
+                </span>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
+  </div>
+)}
+
+{/* Asmaul Husna Section */}
+{activeSection === 'asmaul-husna' && (
+  <div className="mb-12">
+    <div className={`p-8 rounded-2xl ${
+      darkMode 
+        ? 'bg-slate-800/50 border border-slate-700' 
+        : 'bg-white/70 border border-emerald-200'
+    } backdrop-blur-sm`}>
+      <h3 className={`text-3xl font-bold mb-6 text-center ${
+        darkMode ? 'text-white' : 'text-slate-800'
+      }`}>
+        Asmaul Husna (99 Names of Allah)
+      </h3>
+
+      {/* Search Bar */}
+      <div className="relative w-full max-w-md mx-auto mb-8">
+        <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
+          darkMode ? 'text-slate-400' : 'text-slate-500'
+        }`} />
+        <input
+          type="text"
+          placeholder="Search Names..."
+          value={searchName}
+          onChange={(e) => setSearchName(e.target.value)}
+          className={`pl-10 pr-4 py-3 rounded-xl border transition-colors w-full ${
+            darkMode 
+              ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400' 
+              : 'bg-white border-slate-300 text-slate-800 placeholder-slate-500'
+          }`}
+        />
+      </div>
+
+      {/* Names Grid */}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {names
+          .filter(name => 
+            name.name_en.toLowerCase().includes(searchName.toLowerCase()) ||
+            name.name_ar.includes(searchName) ||
+            name.meaning_bn.includes(searchName)
+          )
+          .map((name) => (
+            <div
+              key={name.number}
+              className={`p-6 rounded-xl transition-all duration-300 hover:scale-105 ${
+                darkMode 
+                  ? 'bg-slate-800/50 hover:bg-slate-800/70 border border-slate-700' 
+                  : 'bg-white/70 hover:bg-white border border-emerald-200'
+              } backdrop-blur-sm`}
+            >
+              {/* Number Badge */}
+              <div className="flex justify-between items-start mb-4">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
+                  darkMode ? 'bg-emerald-600 text-white' : 'bg-emerald-500 text-white'
+                }`}>
+                  {name.number}
+                </div>
+                <Star className={`w-5 h-5 ${
+                  darkMode ? 'text-emerald-400 fill-emerald-400' : 'text-emerald-500 fill-emerald-500'
+                }`} />
+              </div>
+
+              {/* English Name */}
+              <h4 className={`text-lg font-bold mb-2 ${
+                darkMode ? 'text-white' : 'text-slate-800'
+              }`}>
+                {name.name_en}
+              </h4>
+
+              {/* Arabic Name */}
+              <p className={`text-2xl mb-3 ${
+                darkMode ? 'text-emerald-300' : 'text-emerald-600'
+              }`} style={{fontFamily: 'Amiri, serif', direction: 'rtl'}}>
+                {name.name_ar}
+              </p>
+
+              {/* Bengali Meaning */}
+              <p className={`text-sm ${
+                darkMode ? 'text-slate-300' : 'text-slate-600'
+              }`} style={{fontFamily: 'Kalpurush, serif'}}>
+                {name.meaning_bn}
+              </p>
+
+              {/* Decorative Border */}
+              <div className={`mt-4 pt-4 border-t ${
+                darkMode ? 'border-slate-700' : 'border-slate-200'
+              }`}>
+                <div className="flex justify-center">
+                  <div className={`w-16 h-1 rounded-full ${
+                    darkMode ? 'bg-emerald-600/50' : 'bg-emerald-500/50'
+                  }`}></div>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
+  </div>
+)}
+
+{activeSection === 'hadith' && (
+  <div className="mb-12">
+    <div className={`p-8 rounded-2xl ${
+      darkMode 
+        ? 'bg-slate-800/50 border border-slate-700' 
+        : 'bg-white/70 border border-emerald-200'
+    } backdrop-blur-sm`}>
+      <h3 className={`text-3xl font-bold mb-6 text-center ${
+        darkMode ? 'text-white' : 'text-slate-800'
+      }`}>
+        Hadith Collections
+      </h3>
+
+      {/* Hadith Books Grid */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {hadithBooks.map((book) => (
+          <HadithBook
+            key={book.id}
+            book={book}
+            onSelectLanguage={fetchHadithCollection}
+            darkMode={darkMode}
+          />
+        ))}
+      </div>
+
+      {/* Display Hadith Collection */}
+      {hadithCollection && (
+        <HadithCollection
+          collection={hadithCollection}
+          searchHadith={searchHadith}
+          setSearchHadith={setSearchHadith}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          hadithsPerPage={hadithsPerPage}
+          darkMode={darkMode}
+        />
+      )}
+    </div>
+  </div>
+)}
+
           </div>
         ) : (
           // Surah Detail View
