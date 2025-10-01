@@ -1,6 +1,19 @@
 import React from 'react';
 
 const HadithBook = ({ book, onSelectLanguage, darkMode }) => {
+  const scrollToHadiths = async (linkmin) => {
+    await onSelectLanguage(linkmin);
+    // Wait for content to load then scroll
+    setTimeout(() => {
+      const hadithSection = document.getElementById('hadith-collection');
+      if (hadithSection) {
+        const yOffset = -100; // Offset to account for any fixed headers
+        const y = hadithSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 500); // Small delay to ensure content is loaded
+  };
+
   return (
     <div className={`p-6 rounded-xl ${
       darkMode 
@@ -17,7 +30,7 @@ const HadithBook = ({ book, onSelectLanguage, darkMode }) => {
         {book.collections.map((collection) => (
           <button
             key={collection.name}
-            onClick={() => onSelectLanguage(collection.linkmin)}
+            onClick={() => scrollToHadiths(collection.linkmin)}
             className={`px-3 py-2 rounded-lg text-sm transition-colors ${
               darkMode
                 ? 'bg-slate-700 hover:bg-slate-600 text-white'

@@ -944,28 +944,145 @@ const pauseAudio = () => {
           <HadithBook
             key={book.id}
             book={book}
-            onSelectLanguage={fetchHadithCollection}
+            onSelectLanguage={async (linkmin) => {
+              setLoading(true);
+              try {
+                const response = await fetch(linkmin);
+                const data = await response.json();
+                setHadithCollection(data);
+                setCurrentPage(1); // Reset to first page when new collection is loaded
+              } catch (err) {
+                console.error('Error fetching hadith:', err);
+              } finally {
+                setLoading(false);
+              }
+            }}
             darkMode={darkMode}
           />
         ))}
       </div>
 
-      {/* Display Hadith Collection */}
-      {hadithCollection && (
-        <HadithCollection
-          collection={hadithCollection}
-          searchHadith={searchHadith}
-          setSearchHadith={setSearchHadith}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          hadithsPerPage={hadithsPerPage}
-          darkMode={darkMode}
-        />
+      {/* Loading Indicator */}
+      {loading && (
+        <div className="flex justify-center my-8">
+          <div className={`animate-spin rounded-full h-12 w-12 border-b-2 ${
+            darkMode ? 'border-emerald-500' : 'border-emerald-600'
+          }`}></div>
+        </div>
+      )}
+
+      {/* Hadith Collection */}
+      {hadithCollection && !loading && (
+        <div 
+          id="hadith-collection" 
+          className="mt-16 scroll-mt-24" // Add scroll margin to account for header
+        >
+          <h4 className={`text-2xl font-bold mb-6 ${
+            darkMode ? 'text-white' : 'text-slate-800'
+          }`}>
+            {hadithCollection.metadata.name}
+          </h4>
+
+          {/* Search Bar */}
+          <div className="relative w-full max-w-md mx-auto mb-8">
+            <input
+              type="text"
+              placeholder="Search Hadith..."
+              value={searchHadith}
+              onChange={(e) => setSearchHadith(e.target.value)}
+              className={`pl-10 pr-4 py-3 rounded-xl border w-full ${
+                darkMode 
+                  ? 'bg-slate-700 border-slate-600 text-white' 
+                  : 'bg-white border-slate-300 text-slate-800'
+              }`}
+            />
+          </div>
+
+          {/* Hadiths Display */}
+          <div className="space-y-6">
+            {hadithCollection.hadiths
+              .slice((currentPage - 1) * hadithsPerPage, currentPage * hadithsPerPage)
+              .filter(hadith => 
+                hadith.text.toLowerCase().includes(searchHadith.toLowerCase())
+              )
+              .map((hadith) => (
+                <div
+                  key={hadith.hadithnumber}
+                  className={`p-6 rounded-xl ${
+                    darkMode 
+                      ? 'bg-slate-700/50' 
+                      : 'bg-white'
+                  }`}
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="bg-emerald-500 text-white px-3 py-1 rounded-full">
+                      {hadith.hadithnumber}
+                    </span>
+                    {hadith.grades && (
+                      <div className="flex flex-wrap gap-2">
+                        {hadith.grades.map((grade, index) => (
+                          <span
+                            key={index}
+                            className={`text-xs px-2 py-1 rounded-full ${
+                              darkMode 
+                                ? 'bg-slate-600 text-white' 
+                                : 'bg-emerald-100 text-emerald-800'
+                            }`}
+                          >
+                            {grade.name}: {grade.grade}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  
+                  <p className={`text-lg leading-relaxed ${
+                    darkMode ? 'text-white' : 'text-slate-800'
+                  }`} style={{
+                    direction: hadithCollection.metadata.direction,
+                    fontFamily: hadithCollection.metadata.direction === 'rtl' ? 'Amiri, serif' : 'inherit'
+                  }}>
+                    {hadith.text}
+                  </p>
+                </div>
+              ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="mt-8 flex justify-center gap-2">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className={`px-4 py-2 rounded-lg ${
+                darkMode 
+                  ? 'bg-slate-700 text-white disabled:bg-slate-800 disabled:text-slate-600' 
+                  : 'bg-white text-slate-800 disabled:bg-slate-100 disabled:text-slate-400'
+              }`}
+            >
+              Previous
+            </button>
+            <span className={`px-4 py-2 ${
+              darkMode ? 'text-white' : 'text-slate-800'
+            }`}>
+              Page {currentPage} of {Math.ceil(hadithCollection.hadiths.length / hadithsPerPage)}
+            </span>
+            <button
+              onClick={() => setCurrentPage(prev => prev + 1)}
+              disabled={currentPage >= Math.ceil(hadithCollection.hadiths.length / hadithsPerPage)}
+              className={`px-4 py-2 rounded-lg ${
+                darkMode 
+                  ? 'bg-slate-700 text-white disabled:bg-slate-800 disabled:text-slate-600' 
+                  : 'bg-white text-slate-800 disabled:bg-slate-100 disabled:text-slate-400'
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       )}
     </div>
   </div>
 )}
-
           </div>
         ) : (
           // Surah Detail View
