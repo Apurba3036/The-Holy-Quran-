@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ChevronRight, Book, Play, Pause, Volume2, Globe, Moon, Sun, Menu, X, Search, Star, BookOpen, Headphones, ArrowLeft, DockIcon, BookText } from 'lucide-react';
 import HadithBook from './components/HadithBook';
 import HadithCollection from './components/HadithCollection';
+import Books from './components/Books';
+
 
 function App() {
   const [surahs, setSurahs] = useState([]);
@@ -234,10 +236,12 @@ const pauseAudio = () => {
   const navigationTabs = [
     { id: 'surahs', label: 'Surahs', icon: Book },
     { id: 'verse-search', label: 'Verse Search', icon: Search },
-    { id: 'reciters', label: 'Reciters', icon: Headphones },
+    { id: 'books', label: 'Books', icon: BookText },
     { id: 'duas', label: 'Duas', icon: BookOpen },
     { id: 'asmaul-husna', label: 'Asmaul Husna', icon: Star },  // Add this
-    { id: 'hadith', label: 'Hadith', icon: BookText } // Add this
+    { id: 'hadith', label: 'Hadith', icon: BookText }, // Add this
+    { id: 'reciters', label: 'Reciters', icon: Headphones }
+    
   ];
 
   // Add this helper function
@@ -382,6 +386,10 @@ const pauseAudio = () => {
 </div>
               </div>
             </div>
+
+            {activeSection === 'books' && (
+  <Books darkMode={darkMode} />
+)}
 
             {/* Surahs Section */}
             {activeSection === 'surahs' && (
